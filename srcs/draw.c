@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 14:58:00 by hcho2             #+#    #+#             */
-/*   Updated: 2023/06/28 20:37:04 by hcho2            ###   ########.fr       */
+/*   Created: 50023/06/28 14:58:00 by hcho2             #+#    #+#             */
+/*   Updated: 50023/06/29 19:01:02 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,33 @@ void	put_pixel(t_vars *vars, int x, int y, int color)
 	*(unsigned int *)dest = color;
 }
 
+int	oob(int x, int y)
+{
+	return (x > WINDOW_WIDTH || x < 0 || y > WINDOW_HEIGHT || y < 0);
+}
+
 void	dda(t_vars *vars, t_point p1, t_point p2)
 {
-	double	dx;
-	double	dy;
-	double	xinc;
-	double	yinc;
-	double	step;
-	int	i;
+	t_dvar	line;
+	int		i;
 
-	dx = p2.x - p1.x;
-	dy = p2.y - p1.y;
+	line.dx = p2.x - p1.x;
+	line.dy = p2.y - p1.y;
 
-	if (fabs(dx) > fabs(dy))
-		step = fabs(dx);
+	if (fabs(line.dx) > fabs(line.dy))
+		line.step = fabs(line.dx);
 	else
-		step = fabs(dy);
+		line.step = fabs(line.dy);
 
-	xinc = dx / step;
-	yinc = dy / step;
+	line.xinc = line.dx / line.step;
+	line.yinc = line.dy / line.step;
 	i = 0;
-	while (i <= step)
+	while (i <= line.step)
 	{
-		put_pixel(vars, p1.x + 500, p1.y + 500, 0x00FFFFFF);
-		p1.x += xinc;
-		p1.y += yinc;
+		if (!oob(p1.x + 500, p1.y + 500))
+			put_pixel(vars, p1.x + 500, p1.y + 500, p1.color);
+		p1.x += line.xinc;
+		p1.y += line.yinc;
 		i++;
 	}
 }
@@ -54,6 +56,7 @@ void	draw(t_map *map, t_vars *vars)
 {
 	int	i;
 	int	j;
+
 
 	i = -1;
 	while (++i < map->height)

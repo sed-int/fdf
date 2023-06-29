@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:55:58 by hcho2             #+#    #+#             */
-/*   Updated: 2023/06/28 20:08:46 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/06/29 19:58:11 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	main(int ac, char **av)
 	ft_isometric(&map);
 	scaling(&map);
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, WINDOW_HEIGHT, WINDOW_WIDTH, av[1]);
-	vars.img = mlx_new_image(vars.mlx, WINDOW_HEIGHT, WINDOW_WIDTH);
+	vars.win = mlx_new_window(vars.mlx, WINDOW_WIDTH, WINDOW_HEIGHT, av[1]);
+	vars.img = mlx_new_image(vars.mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	vars.addr = mlx_get_data_addr(vars.img, &vars.bits_per_pixel,
 			&vars.line_length, &vars.endian);
 	draw(&map, &vars);

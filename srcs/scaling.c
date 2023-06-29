@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 19:25:52 by hcho2             #+#    #+#             */
-/*   Updated: 2023/06/28 20:46:01 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/06/29 20:32:51 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	scaling(t_map *map)
 	int	j;
 	int	ratio;
 
-	ratio = WINDOW_HEIGHT / map->height * 4 / 10;
+	ratio = WINDOW_HEIGHT / map->height * 50 / 100;
 	i = -1;
 	while (++i < map->height)
 	{

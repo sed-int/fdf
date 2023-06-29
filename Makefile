@@ -6,7 +6,7 @@
 #    By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 14:13:30 by hcho2             #+#    #+#              #
-#    Updated: 2023/06/28 20:40:08 by hcho2            ###   ########.fr        #
+#    Updated: 2023/06/29 18:50:53 by hcho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ OBJ			= $(SRC:.c=.o)
 
 NAME		= fdf
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
-MFLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
+CFLAGS		= -Wall -Werror -Wextra -g3 -fsanitize=address
+MFLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit -g3 -fsanitize=address
 RM			= rm -f
 
 all:		$(NAME)
