@@ -12,12 +12,11 @@
 
 #include "fdf.h"
 
-void	put_pixel(t_vars *vars, int x, int y, int color)
+void	put_pixel(t_env *env, int x, int y, int color)
 {
 	char	*dest;
 
-	dest = vars->addr + (y * vars->line_length + x
-			* (vars->bits_per_pixel / 8));
+	dest = env->addr + (y * env->line_length + x * (env->bpp / 8));
 	*(unsigned int *)dest = color;
 }
 
@@ -26,7 +25,7 @@ int	oob(int x, int y)
 	return (x > WINDOW_WIDTH || x < 0 || y > WINDOW_HEIGHT || y < 0);
 }
 
-void	dda(t_vars *vars, t_point p1, t_point p2)
+void	dda(t_env *env, t_point p1, t_point p2)
 {
 	t_dvar	line;
 	int		i;
@@ -44,36 +43,54 @@ void	dda(t_vars *vars, t_point p1, t_point p2)
 	i = 0;
 	while (i <= line.step)
 	{
-		if (!oob(p1.x + 500, p1.y + 500))
-			put_pixel(vars, p1.x + 500, p1.y + 500, p1.color);
+		if (!oob(p1.x + env->x_offset, p1.y + env->y_offset))
+			put_pixel(env, p1.x + env->x_offset,
+				p1.y + env->y_offset, p1.color);
 		p1.x += line.xinc;
 		p1.y += line.yinc;
 		i++;
 	}
 }
 
-void	draw(t_map *map, t_vars *vars)
+void	mapcpy(t_point	**dst, t_point	**src, t_map *map)
 {
 	int	i;
 	int	j;
 
+	i = -1;
+	while (++i < map->height)
+	{
+		j = -1;
+		while (++j < map->width)
+		{
+			dst[i][j] = src[i][j];
+		}
+	}
+}
 
+void	draw(t_map *map, t_env *env)
+{
+	int	i;
+	int	j;
+	
+	ft_memset(env->addr, 0, WINDOW_WIDTH * WINDOW_HEIGHT * (env->bpp / 8));
+	j = -1;
+	while (++j < map->width)
+	{
+		i = -1;
+		while (++i < map->height - 1)
+		{
+			dda(env, map->table[i][j], map->table[i + 1][j]);
+		}
+	}
 	i = -1;
 	while (++i < map->height)
 	{
 		j = -1;
 		while (++j < map->width - 1)
 		{
-			dda(vars, map->table[i][j], map->table[i][j + 1]);
+			dda(env, map->table[i][j], map->table[i][j + 1]);
 		}
 	}
-	i = -1;
-	while (++i < map->height - 1)
-	{
-		j = -1;
-		while (++j < map->width)
-		{
-			dda(vars, map->table[i][j], map->table[i + 1][j]);
-		}
-	}
+	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }

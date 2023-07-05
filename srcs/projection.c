@@ -23,6 +23,7 @@ void	rotate_x(double *x, double *y, double *z)
 	prev_y = *y;
 	prev_z = *z;
 	theta = M_PI / 3;
+	*x = prev_x;
 	*y = prev_y * cos(theta) - prev_z * sin(theta);
 	*z = prev_y * sin(theta) + prev_z * cos(theta);
 }
@@ -39,6 +40,7 @@ void	rotate_y(double *x, double *y, double *z)
 	prev_z = *z;
 	theta = M_PI / 3;
 	*x = prev_x * cos(theta) - prev_z * sin(theta);
+	*y = prev_y;
 	*z = prev_x * sin(theta) + prev_z * cos(theta);
 }
 
@@ -55,6 +57,7 @@ void	rotate_z(double *x, double *y, double *z)
 	theta = M_PI / -4;
 	*x = prev_x * cos(theta) - prev_y * sin(theta);
 	*y = prev_x * sin(theta) + prev_y * cos(theta);
+	*z = prev_z;
 }
 
 void	ft_isometric(t_map *map)

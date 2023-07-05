@@ -27,19 +27,21 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 
 SRC			= srcs/main.c srcs/parse_input.c srcs/ft_split.c \
 			srcs/ft_atoi.c srcs/draw.c srcs/scaling.c srcs/projection.c \
+			srcs/key_press.c \
 			gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJ			= $(SRC:.c=.o)
 
 NAME		= fdf
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -g3 -fsanitize=address
-MFLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit -g3 -fsanitize=address
+CFLAGS		= -Wall -Werror -Wextra
+MFLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM			= rm -f
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-	@$(CC) $(MFLAGS) $(OBJ) -o $(NAME)
+	@$(MAKE) -C ./mlx
+	@$(CC) $(MFLAGS) $(OBJ) -o $(NAME) -fsanitize=address -g
 	@echo $(GREEN)"\n============================================================\n" $(EOC)
 	@echo $(YELLOW)"                          FDF DONE                          " $(EOC)
 	@echo $(GREEN)"\n============================================================\n" $(EOC)

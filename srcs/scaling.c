@@ -14,11 +14,11 @@
 
 void	scaling(t_map *map)
 {
-	int	i;
-	int	j;
-	int	ratio;
+	int		i;
+	int		j;
+	double	ratio;
 
-	ratio = WINDOW_HEIGHT / map->height * 50 / 100;
+	ratio = WINDOW_HEIGHT / map->height * 0.4;
 	i = -1;
 	while (++i < map->height)
 	{

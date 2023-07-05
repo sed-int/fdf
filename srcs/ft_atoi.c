@@ -60,7 +60,7 @@ int	ft_atoi(const char *str)
 	}
 }
 
-int	ft_htoi(char *str)
+int	ft_atoh(char *str)
 {
 	char	*hex1;
 	int		i;

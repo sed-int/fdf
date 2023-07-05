@@ -50,17 +50,17 @@ void	get_width(t_map *map)
 	w = 0;
 	while (map->line[i])
 	{
-		while (map->line[i] && !is_space(map->line[i]))
-			i++;
-		if (map->line[i] && is_space(map->line[i]))
-			w++;
 		while (map->line[i] && is_space(map->line[i]))
+			i++;
+		if (map->line[i] && !is_space(map->line[i]))
+			w++;
+		while (map->line[i] && !is_space(map->line[i]))
 			i++;
 	}
 	if (map->width == 0)
 		map->width = w;
-// 	else if (map->width != w)
-// 		exit(1);
+	else if (map->width != w)
+		printf("get_width: line_error\n");
 }
 
 void	parse_map(char *filename, t_map *map)
@@ -83,16 +83,16 @@ void	parse_map(char *filename, t_map *map)
 	}
 	close(fd);
 	fd = open(filename, O_RDONLY);
-	printf("--%d--\n", map->height);
-	printf("--%lu--\n", sizeof(t_point *) * map->height);
 	map->table = malloc(sizeof(t_point *) * map->height);
+	map->input = malloc(sizeof(t_point *) * map->height);
 	i = -1;
 	while (++i < map->height)
 	{
 		map->table[i] = malloc(sizeof(t_point) * map->width);
+		map->input[i] = malloc(sizeof(t_point) * map->width);
 		tmp = ft_split(get_next_line(fd), ' ');
 		j = -1;
-		while (++j < map->width - 1)
+		while (++j < map->width)
 		{
 			map->table[i][j].x = j;
 			map->table[i][j].y = i;
@@ -101,13 +101,12 @@ void	parse_map(char *filename, t_map *map)
 			if (ft_strchr_idx(tmp[j], ',') != -1)
 			{
 				tmp2 = ft_split(tmp[j], ',');
-				map->table[i][j].color = ft_htoi(tmp2[1]);
-				// printf("parse_map, color dec: %d\n", map->table[i][j].color);
-				// printf("parse_map, color hex: %s\n", tmp2[1]);
+				map->table[i][j].color = ft_atoh(tmp2[1]);
 				ft_free_split(tmp2);
 			}
 		}
-		// ft_free_split(tmp);
+		ft_free_split(tmp);
 	}
+	mapcpy(map->input, map->table, map);
 	close(fd);
 }
