@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 09:57:54 by hcho2             #+#    #+#             */
-/*   Updated: 2023/06/29 20:00:46 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/06 16:28:02 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,10 @@ int	ft_atoi(const char *str)
 	}
 }
 
-int	ft_atoh(char *str)
+void	to_lower(char *str)
 {
-	char	*hex1;
-	int		i;
-	int		ret;
+	int	i;
 
-	hex1 = "0123456789abcdef";
 	i = 0;
 	while (str[i])
 	{
@@ -74,6 +71,16 @@ int	ft_atoh(char *str)
 			str[i] += 32;
 		i++;
 	}
+}
+
+int	ft_atoh(char *str)
+{
+	char	*hex1;
+	int		i;
+	int		ret;
+
+	hex1 = "0123456789abcdef";
+	to_lower(str);
 	ret = 0;
 	if (!ft_strncmp(str, "0X", 2) || !ft_strncmp(str, "0x", 2))
 	{

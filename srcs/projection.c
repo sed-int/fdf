@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:08:19 by hcho2             #+#    #+#             */
-/*   Updated: 2023/06/28 20:32:14 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/06 16:26:52 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,10 @@ void	ft_isometric(t_map *map)
 		j = -1;
 		while (++j < map->width)
 		{
-			rotate_z(&map->table[i][j].x, &map->table[i][j].y, &map->table[i][j].z);
-			rotate_x(&map->table[i][j].x, &map->table[i][j].y, &map->table[i][j].z);
+			rotate_z(&map->table[i][j].x, &map->table[i][j].y,
+				&map->table[i][j].z);
+			rotate_x(&map->table[i][j].x, &map->table[i][j].y,
+				&map->table[i][j].z);
 		}
 	}
 }

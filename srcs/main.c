@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:55:58 by hcho2             #+#    #+#             */
-/*   Updated: 2023/06/29 19:58:11 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/06 17:16:11 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ t_env	*init_env(void)
 
 int	main(int ac, char **av)
 {
-	t_env 	*env;
+	t_env	*env;
 	t_map	map;
 
 	if (ac < 2)
 		return (1);
 	env = init_env();
 	env->mlx = mlx_init();
-	env->win = mlx_new_window(env->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, av[1]);
-	env->img = mlx_new_image(env->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	env->win = mlx_new_window(env->mlx, WIDTH, HEIGHT, av[1]);
+	env->img = mlx_new_image(env->mlx, WIDTH, HEIGHT);
 	env->addr = mlx_get_data_addr(env->img, &env->bpp,
 			&env->line_length, &env->endian);
 	parse_map(av[1], &map);

@@ -6,15 +6,16 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:19:49 by hcho2             #+#    #+#             */
-/*   Updated: 2023/06/29 18:10:27 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/06 16:51:35 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# define WINDOW_WIDTH	1920
-# define WINDOW_HEIGHT	1080
+# define WIDTH			1920
+# define HEIGHT			1080
+# define WHITE			0x00FFFFFF
 
 # define LEFT_CLICK		1
 # define RIGHT_CLICK	2
@@ -64,7 +65,7 @@ typedef struct s_dvar
 	double	xinc;
 	double	yinc;
 	double	step;
-} t_dvar;
+}	t_dvar;
 
 typedef struct s_env
 {
@@ -83,7 +84,7 @@ typedef struct s_env
 	int		x_offset;
 	int		y_offset;
 	t_map	*map;
-} t_env;
+}	t_env;
 
 char	**ft_split(char const *str, char c);
 char	**ft_free_split(char **list);
@@ -94,8 +95,10 @@ void	ft_isometric(t_map *map);
 void	draw(t_map *map, t_env *env);
 int		ft_strchr_idx(const char *s, char c);
 int		ft_atoh(char *str);
-void	*ft_memset(void *b, int c, size_t n);
 int		key_press(int keycode, t_env *env);
 void	mapcpy(t_point	**arr1, t_point	**arr2, t_map *map);
+void	*ft_memset(void *b, int c, size_t n);
+int		ft_strchr_idx(const char *s, char c);
+int		is_space(char c);
 
 #endif

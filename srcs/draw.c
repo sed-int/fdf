@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 50023/06/28 14:58:00 by hcho2             #+#    #+#             */
-/*   Updated: 50023/06/29 19:01:02 by hcho2            ###   ########.fr       */
+/*   Created: 2023/06/28 14:58:00 by  hcho2            #+#    #+#             */
+/*   Updated: 2023/07/06 17:40:14 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	put_pixel(t_env *env, int x, int y, int color)
 
 int	oob(int x, int y)
 {
-	return (x > WINDOW_WIDTH || x < 0 || y > WINDOW_HEIGHT || y < 0);
+	return (x >= WIDTH || x < 0 || y >= HEIGHT || y < 0);
 }
 
 void	dda(t_env *env, t_point p1, t_point p2)
@@ -32,12 +32,10 @@ void	dda(t_env *env, t_point p1, t_point p2)
 
 	line.dx = p2.x - p1.x;
 	line.dy = p2.y - p1.y;
-
 	if (fabs(line.dx) > fabs(line.dy))
 		line.step = fabs(line.dx);
 	else
 		line.step = fabs(line.dy);
-
 	line.xinc = line.dx / line.step;
 	line.yinc = line.dy / line.step;
 	i = 0;
@@ -72,25 +70,21 @@ void	draw(t_map *map, t_env *env)
 {
 	int	i;
 	int	j;
-	
-	ft_memset(env->addr, 0, WINDOW_WIDTH * WINDOW_HEIGHT * (env->bpp / 8));
+
+	ft_memset(env->addr, 0, WIDTH * HEIGHT * (env->bpp / 8));
 	j = -1;
 	while (++j < map->width)
 	{
 		i = -1;
 		while (++i < map->height - 1)
-		{
 			dda(env, map->table[i][j], map->table[i + 1][j]);
-		}
 	}
 	i = -1;
 	while (++i < map->height)
 	{
 		j = -1;
 		while (++j < map->width - 1)
-		{
 			dda(env, map->table[i][j], map->table[i][j + 1]);
-		}
 	}
 	mlx_put_image_to_window(env->mlx, env->win, env->img, 0, 0);
 }
