@@ -6,7 +6,7 @@
 #    By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 14:13:30 by hcho2             #+#    #+#              #
-#    Updated: 2023/07/06 17:18:07 by hcho2            ###   ########.fr        #
+#    Updated: 2023/07/10 19:04:13 by hcho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 
 SRC			= srcs/main.c srcs/parse_input.c srcs/ft_split.c \
 			srcs/ft_atoi.c srcs/draw.c srcs/scaling.c srcs/projection.c \
-			srcs/key_press.c srcs/utils.c \
+			srcs/key_press.c srcs/utils.c srcs/utils2.c \
 			gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJ			= $(SRC:.c=.o)
 

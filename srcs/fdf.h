@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:19:49 by hcho2             #+#    #+#             */
-/*   Updated: 2023/07/06 16:51:35 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/10 20:56:33 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_point
 	double	x;
 	double	y;
 	double	z;
-	int		color;
+	long	color;
 }	t_point;
 
 typedef struct s_map
@@ -100,5 +100,9 @@ void	mapcpy(t_point	**arr1, t_point	**arr2, t_map *map);
 void	*ft_memset(void *b, int c, size_t n);
 int		ft_strchr_idx(const char *s, char c);
 int		is_space(char c);
+void	ft_putstr_fd(char *str, int fd);
+int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	ft_error(char *str);
 
 #endif

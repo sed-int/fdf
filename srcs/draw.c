@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 14:58:00 by  hcho2            #+#    #+#             */
-/*   Updated: 2023/07/06 17:40:14 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/10 21:19:05 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	dda(t_env *env, t_point p1, t_point p2)
 	i = 0;
 	while (i <= line.step)
 	{
+
 		if (!oob(p1.x + env->x_offset, p1.y + env->y_offset))
 			put_pixel(env, p1.x + env->x_offset,
 				p1.y + env->y_offset, p1.color);

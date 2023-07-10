@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:55:13 by hcho2             #+#    #+#             */
-/*   Updated: 2023/07/06 17:18:42 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/10 18:54:29 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ void	get_width(t_map *map)
 		while (map->line[i] && !is_space(map->line[i]))
 			i++;
 	}
-	if (map->width == 0)
+	if (map->height == 0 && map->width == 0)
 		map->width = w;
-	else if (map->width != w)
-	{
-		exit(1);
-	}
+	else if (map->height != 0 && map->width != w)
+		ft_error("Invalid map.");
 }
 
 void	get_size(char *filename, t_map *map)
@@ -42,16 +40,18 @@ void	get_size(char *filename, t_map *map)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		perror(filename);
+		ft_error("Open error.");
 	ft_memset(map, 0, sizeof(t_map));
 	map->line = get_next_line(fd);
 	while (map->line)
 	{
-		map->height++;
 		get_width(map);
+		map->height++;
 		free(map->line);
 		map->line = get_next_line(fd);
 	}
+	if (map->height == 0)
+		ft_error("Empty file.");
 	close(fd);
 }
 
@@ -68,25 +68,22 @@ void	map_init(t_map *map)
 		map->input[i] = malloc(sizeof(t_point) * map->width);
 	}
 	if (!map->table || !map->input)
-	{
-		perror("malloc error: ");
-		exit(1);
-	}
+		ft_error("Failed to allocate memory.");
 }
 
-void	get_color(t_map *map, char *str, int i, int j)
+void	get_point(t_map *map, char *str, int i, int j)
 {
 	char	**tmp;
 
+	map->table[i][j].x = j;
+	map->table[i][j].y = i;
+	map->table[i][j].z = ft_atoi(str);
 	map->table[i][j].color = WHITE;
 	if (ft_strchr_idx(str, ',') != -1)
 	{
 		tmp = ft_split(str, ',');
 		if (!tmp)
-		{
-			perror("split error: ");
-			exit(1);
-		}
+			ft_error("Failed to allocate memory.");
 		map->table[i][j].color = ft_atoh(tmp[1]);
 		ft_free_split(tmp);
 	}
@@ -102,25 +99,17 @@ void	parse_map(char *filename, t_map *map)
 	get_size(filename, map);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		perror(filename);
+		ft_error("Open error.");
 	map_init(map);
 	i = -1;
 	while (++i < map->height)
 	{
 		z_values = ft_split(get_next_line(fd), ' ');
 		if (!z_values)
-		{
-			perror("split error: ");
-			exit(1);
-		}
+			ft_error("Error: failed to allocate memory.");
 		j = -1;
 		while (++j < map->width)
-		{
-			map->table[i][j].x = j;
-			map->table[i][j].y = i;
-			map->table[i][j].z = ft_atoi(z_values[j]);
-			get_color(map, z_values[j], i, j);
-		}
+			get_point(map, z_values[j], i, j);
 		ft_free_split(z_values);
 	}
 	mapcpy(map->input, map->table, map);

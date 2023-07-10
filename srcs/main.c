@@ -6,27 +6,11 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:55:58 by hcho2             #+#    #+#             */
-/*   Updated: 2023/07/06 17:16:11 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/10 17:05:12 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = -1;
-	while (s[++i])
-		;
-	write(fd, s, i);
-}
-
-void	ft_error(char *str)
-{
-	perror(str);
-	exit(1);
-}
 
 t_env	*init_env(void)
 {
@@ -40,6 +24,22 @@ t_env	*init_env(void)
 	env->x_offset = 500;
 	env->y_offset = 500;
 	return (env);
+}
+
+void	file_check(char *filename)
+{
+	int		i;
+	char	**check;
+
+	check = ft_split(filename, '.');
+	i = -1;
+	while (check[++i])
+		;
+	if (i < 2)
+		ft_error("Invalid file name.");
+	if (ft_strcmp(check[--i], ".fdf") != 0)
+		ft_error("Invalid file name.");
+	ft_free_split(check);
 }
 
 int	main(int ac, char **av)
