@@ -6,7 +6,7 @@
 #    By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/26 14:13:30 by hcho2             #+#    #+#              #
-#    Updated: 2023/07/10 19:04:13 by hcho2            ###   ########.fr        #
+#    Updated: 2023/07/12 15:28:12 by hcho2            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,9 +29,16 @@ SRC			= srcs/main.c srcs/parse_input.c srcs/ft_split.c \
 			srcs/ft_atoi.c srcs/draw.c srcs/scaling.c srcs/projection.c \
 			srcs/key_press.c srcs/utils.c srcs/utils2.c \
 			gnl/get_next_line.c gnl/get_next_line_utils.c
+BSRC		= bsrcs/main_bonus.c bsrcs/parse_input_bonus.c bsrcs/ft_split_bonus.c \
+			bsrcs/ft_atoi_bonus.c bsrcs/draw_bonus.c bsrcs/scaling_bonus.c bsrcs/projection_bonus.c \
+			bsrcs/key_press_bonus.c bsrcs/utils_bonus.c bsrcs/utils2_bonus.c \
+			gnl/get_next_line.c gnl/get_next_line_utils.c
 OBJ			= $(SRC:.c=.o)
+BOBJ		= $(BSRC:.c=.o)
 
+INC			= -Iincludes
 NAME		= fdf
+BNAME		= fdf_bonus
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
 MFLAGS		= -Lmlx -lmlx -framework OpenGL -framework AppKit
@@ -41,22 +48,33 @@ all:		$(NAME)
 
 $(NAME):	$(OBJ)
 	@$(MAKE) -C ./mlx
-	@$(CC) $(MFLAGS) $(OBJ) -o $(NAME) -fsanitize=address -g
+	@$(CC) $(MFLAGS) $(OBJ) -o $(NAME)
 	@echo $(GREEN)"\n============================================================\n" $(EOC)
 	@echo $(YELLOW)"                          FDF DONE                          " $(EOC)
 	@echo $(GREEN)"\n============================================================\n" $(EOC)
 
+bonus:		$(BNAME)
+
+$(BNAME):	$(BOBJ)
+	@$(MAKE) -C ./mlx
+	@$(CC) $(MFLAGS) $(BOBJ) -o $(NAME)
+	@echo $(GREEN)"\n============================================================\n" $(EOC)
+	@echo $(YELLOW)"                          FDF DONE                          " $(EOC)
+	@echo $(GREEN)"\n============================================================\n" $(EOC)
+	@touch $@
+
 %.o: 		%.c
-	@$(CC) $(CFLAGS) -Imlx -c $< -o $@
+	@$(CC) $(CFLAGS) -Imlx $(INC) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJ)
+	@$(RM) mlx/*.o
+	@$(RM) $(OBJ) $(BOBJ)
 	@echo $(GREEN)"\n============================================================\n" $(EOC)
 	@echo $(YELLOW)"                          FDF CLEAN                         " $(EOC)
 	@echo $(GREEN)"\n============================================================\n" $(EOC)
 
 fclean:		clean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(BNAME)
 	@echo $(GREEN)"\n============================================================\n" $(EOC)
 	@echo $(YELLOW)"                         FDF FCLEAN                         " $(EOC)
 	@echo $(GREEN)"\n============================================================\n" $(EOC)

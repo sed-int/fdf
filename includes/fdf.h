@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:19:49 by hcho2             #+#    #+#             */
-/*   Updated: 2023/07/10 20:56:33 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/12 15:25:22 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 # define HEIGHT			1080
 # define WHITE			0x00FFFFFF
 
-# define LEFT_CLICK		1
-# define RIGHT_CLICK	2
-# define MIDDLE_CLICK	3
-# define SCROLL_UP		4
-# define SCROLL_DOWN	5
-
 # define LEFT			123
 # define RIGHT			124
 # define DOWN			125
@@ -30,7 +24,6 @@
 # define MINUS			27
 # define PLUS			24
 # define SPACE			49
-# define KEY_R			15
 # define ESCAPE			53
 
 # include "../mlx/mlx.h"
@@ -77,9 +70,6 @@ typedef struct s_env
 	int		bpp;
 	int		line_length;
 	int		endian;
-	double	x_angle;
-	double	y_angle;
-	double	z_angle;
 	double	zoom;
 	int		x_offset;
 	int		y_offset;
@@ -91,7 +81,6 @@ char	**ft_free_split(char **list);
 int		ft_atoi(const char *str);
 void	parse_map(char *filename, t_map *map);
 void	scaling(t_map *map);
-void	ft_isometric(t_map *map);
 void	draw(t_map *map, t_env *env);
 int		ft_strchr_idx(const char *s, char c);
 int		ft_atoh(char *str);
@@ -104,5 +93,6 @@ void	ft_putstr_fd(char *str, int fd);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_error(char *str);
+void	ft_isometric(t_map *map);
 
 #endif
