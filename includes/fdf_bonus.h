@@ -6,7 +6,7 @@
 /*   By: hcho2 <hcho2@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 15:19:49 by hcho2             #+#    #+#             */
-/*   Updated: 2023/07/12 15:27:21 by hcho2            ###   ########.fr       */
+/*   Updated: 2023/07/12 15:37:51 by hcho2            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # include "../gnl/get_next_line.h"
 # include <fcntl.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include <math.h>
 # include <unistd.h>
 
